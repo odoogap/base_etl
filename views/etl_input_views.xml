@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- etl.input -->
+
+    <!-- Tree View etl.input -->
+    <record id="etl_input_tree" model="ir.ui.view">
+        <field name="name">etl.input.tree</field>
+        <field name="model">etl.input</field>
+        <field name="arch" type="xml">
+            <tree string="Input Date">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View etl.input -->
+    <record id="etl_input_search" model="ir.ui.view">
+        <field name="name">etl.input.search</field>
+        <field name="model">etl.input</field>
+        <field name="arch" type="xml">
+            <search string="Input Date">
+                <field name="name"/>
+                <group col="8" colspan="4" expand="0" string="Group By">
+                    <filter name="group_by_month" string="Creation date (month)" domain="[]"
+                            context="{'group_by':'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Form View etl.input -->
+    <record id="etl_input_form" model="ir.ui.view">
+        <field name="name">etl.input.form</field>
+        <field name="model">etl.input</field>
+        <field name="arch" type="xml">
+            <form string="Input Date">
+                <header>
+                    <button name="validate" states="new" string="Process" type="object" class="oe_highlight"/>
+                    <button name="done" states="in_process" string="Done" type="object" class="oe_highlight"/>
+                    <button name="cancel" states="processed" string="Set Draft" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="processed,in_process,new" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="json_data_tx"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action etl.input -->
+    <record id="action_etl_input_list" model="ir.actions.act_window">
+        <field name="name">Input Date</field>
+        <field name="res_model">etl.input</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="ETL" id="menu_etl_root" sequence="30" web_icon="stock,static/description/icon.png"
+              groups="base.group_user"/>
+
+
+    <menuitem id="menu_etl_data" name="Input Data" parent="menu_etl_root" sequence="2"/>
+    <menuitem id="menu_etl_input_data" name="Input Data" sequence="99" parent="base_etl.menu_etl_data"
+              action="action_etl_input_list"/>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_server_unset_import_id" model="ir.actions.server">
+            <field name="name">Unset Import ID</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_etl_function" />
+            <field name="binding_model_id" ref="model_etl_function" />
+            <field name="state">code</field>
+            <field name="code">records.unset_import_id()</field>
+        </record>
+    </data>
+</odoo>
