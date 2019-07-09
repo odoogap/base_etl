@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com>
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+
+    <template id="assets_backend" name="web_widget_image_url assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/base_etl/static/src/js/widget_jsonb.js" />
+        </xpath>
+    </template>
+</odoo>

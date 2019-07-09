@@ -1,3 +1,6 @@
+# Copyright 2019 - 2019 OdooGap <info@odoogap.com> https://www.odoogap.com
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+
 from odoo import api, fields, models
 from odoo.tools import ustr
 
@@ -11,9 +14,11 @@ class Jsonb(fields._String):
             return False
         return ustr(value)
 
-    # @property
-    # def column_type(self):
-    #     return ('jsonb', 'jsonb')
+    def convert_to_read(self, value, record, use_name_get=True):
+        return value
+
+    def convert_to_write(self, value, record):
+        return value
 
 
 fields.Jsonb = Jsonb

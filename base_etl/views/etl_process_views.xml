@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com>
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+
+
+    <!-- ETL.process -->
+
+    <!-- Tree View etl.process -->
+    <record id="etl_process_tree" model="ir.ui.view">
+        <field name="name">etl.process.tree</field>
+        <field name="model">etl.process</field>
+        <field name="arch" type="xml">
+            <tree string="ETL Process">
+                <field name="name"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View etl.process -->
+    <record id="etl_process_search" model="ir.ui.view">
+        <field name="name">etl.process.search</field>
+        <field name="model">etl.process</field>
+        <field name="arch" type="xml">
+            <search string="ETL Process">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Form View etl.process -->
+    <record id="etl_process_form" model="ir.ui.view">
+        <field name="name">etl.process.form</field>
+        <field name="model">etl.process</field>
+        <field name="arch" type="xml">
+            <form string="ETL Process">
+                <header></header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page name="rules" string="Rules">
+                            <field name="rule_ids">
+                                <tree>
+                                    <field name="sequence" string="Sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action etl.process -->
+    <record id="action_etl_process_list" model="ir.actions.act_window">
+        <field name="name">ETL Process</field>
+        <field name="res_model">etl.process</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

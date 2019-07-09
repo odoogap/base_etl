@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com>
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
 
     <!-- etl.function -->
 
@@ -24,7 +27,7 @@
             <search string="ETL Functions">
                 <field name="name"/>
                 <group col="8" colspan="4" expand="0" string="Group By">
-                     <filter name="global" string="Global" domain="[('import_id', '=', False)]"/>
+                     <filter name="global" string="Global" domain="[('process_ids', '=', False)]"/>
                 </group>
             </search>
         </field>
@@ -71,7 +74,7 @@
         <field name="arch" type="xml">
             <tree string="ETL Rule">
                 <field name="name"/>
-                <field name="import_id"/>
+                <field name="process_ids" widget="many2many_tags"/>
                 <field name="create_date"/>
             </tree>
         </field>
@@ -84,7 +87,7 @@
         <field name="arch" type="xml">
             <search string="ETL Rule">
                 <field name="name"/>
-                <field name="import_id"/>
+                <field name="process_ids"/>
                 <group col="8" colspan="4" expand="0" string="Group By">
                     <filter name="group_by_month" string="Creation date (month)" domain="[]"
                             context="{'group_by':'create_date:month'}"/>
@@ -106,11 +109,13 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="import_id"/>
+                        <field name="type"/>
+                        <field name="process_ids" widget="many2many_tags"/>
+                        <field name="etl_plugin" attrs="{'invisible': [('type','!=','plugin')]}"/>
                         <field name="create_date"/>
                     </group>
                     <notebook colspan="4">
-                        <page string="Python Code" name='code' autofocus="autofocus">
+                        <page string="Mapping" name='code' autofocus="autofocus" attrs="{'invisible': [('type','not in',['create','update','unlink'])]}">
                             <group>
                                 <field name="code" widget="ace" options="{'mode': 'python'}"
                                        placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
@@ -133,9 +138,4 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_etl_rules" name="Rules" parent="menu_etl_root" sequence="1"/>
-    <menuitem id="menu_etl_function_list" name="Functions" sequence="1" parent="menu_etl_rules"
-              action="action_etl_function_list"/>
-    <menuitem id="menu_etl_rules_list" name="Transformation" sequence="99" parent="menu_etl_rules"
-              action="action_etl_rule_list"/>
 </odoo>

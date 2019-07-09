@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com> https://www.odoogap.com
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
     <data noupdate="0">
         <record id="ir_cron_run_import" model="ir.cron">
             <field name="name">ETL: run import</field>

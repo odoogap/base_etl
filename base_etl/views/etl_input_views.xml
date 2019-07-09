@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com>
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
 
     <!-- etl.input -->
 
@@ -45,7 +49,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="json_data_tx"/>
+                        <field name="json_data" widget="jsonb_widget"/>
                     </group>
                 </sheet>
             </form>
@@ -59,13 +63,5 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-    <menuitem name="ETL" id="menu_etl_root" sequence="30" web_icon="stock,static/description/icon.png"
-              groups="base.group_user"/>
-
-
-    <menuitem id="menu_etl_data" name="Input Data" parent="menu_etl_root" sequence="2"/>
-    <menuitem id="menu_etl_input_data" name="Input Data" sequence="99" parent="base_etl.menu_etl_data"
-              action="action_etl_input_list"/>
 
 </odoo>

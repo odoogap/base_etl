@@ -1,3 +1,7 @@
+# Copyright 2019 - 2019 OdooGap <info@odoogap.com> https://www.odoogap.com
+# License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+
+
 from odoo import api, fields, models, _
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
@@ -32,16 +36,26 @@ class EtlRule(models.Model):
     #  - data: Input data from JSONB
     # To return an action, assign: action = {...}\n\n\n\n"""
 
+    @api.model
+    def _select_child_classes(self):
+        return [(p, self.env[p]._description) for p in self.env['etl.rule.mixin']._inherit_children]
+
+    sequence = fields.Integer(string='Sequence')
     name = fields.Char('Name')
-    import_id = fields.Char('Import ID')
+    process_ids = fields.Many2many('etl.process', 'etl_process_rules_rel', 'rule_id',
+                                   'process_id', string='Process', readonly=True)
     type = fields.Selection([
         ('create', 'Create'),
         ('update', 'Update'),
-        ('unlink', 'Delete')], required=True, default='create')
+        ('unlink', 'Delete'),
+        ('plugin', 'Plugin'),
+        ('sql', 'SQL')
+    ], required=True, default='create')
     code = fields.Text(string='Python Code',
                        default=DEFAULT_PYTHON_CODE,
                        help="Write Python code that the action will execute. Some variables are "
                             "available for use; help about python expression is given in the help tab.")
+    etl_plugin = fields.Selection('_select_child_classes', string='Job Class')
     domain = fields.Text(default='[]', required=True)
     test_result = fields.Text('Last Result')
 
@@ -50,16 +64,11 @@ class EtlRule(models.Model):
         self.ensure_one()
         code = self.code
         try:
-
-            EtlFunctions = self.env['etl.function'].search([
-            ])
-
+            EtlFunctions = self.env['etl.function'].search([])
             function_context = {fn.name: eval(fn.code) for fn in EtlFunctions}
-
             InputRecords = self.env['etl.input'].search([
                 ('state', '=', process_state)
             ], limit=PAGE_SIZE)
-
             InputRecords.write({'state': 'in_process'})
 
             for rec in InputRecords:
@@ -104,3 +113,22 @@ class EtlRule(models.Model):
     def _cron_run_import(self):
         # TODO: to implement
         pass
+
+
+class EtlRuleBase(models.AbstractModel):
+    _name = "etl.rule.mixin"
+    _description = 'This is a Mixin for creating jobs'
+
+    def _run(self):
+        pass
+
+
+class EtlRuleTest(models.AbstractModel):
+    _name = 'etl.rule.test01'
+    _inherit = ['etl.rule.mixin']
+    _description = 'This is a Mixin for creating jobs'
+
+    def _run(self):
+        print("test")
+
+

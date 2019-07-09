@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_etl_input,access_etl_input,model_etl_input,base.group_user,1,1,1,1
 access_etl_rule,access_etl_rule,model_etl_rule,base.group_user,1,1,1,1
 access_etl_function,access_etl_function,model_etl_function,base.group_user,1,1,1,1
+access_etl_process,access_etl_process,model_etl_process,base.group_user,1,1,1,1
