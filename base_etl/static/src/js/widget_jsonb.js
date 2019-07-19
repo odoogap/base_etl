@@ -20,7 +20,7 @@ odoo.define('base_etl.jsonb_widget', function (require) {
         },
 
         _formatValue: function (value) {
-            return JSON.parse(value);
+            return JSON.stringify(value);
         },
 
         _renderReadonly: function () {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--
-// Copyright 2019 - 2019 OdooGap <info@odoogap.com>
-// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
--->
+    <!--
+    // Copyright 2019 - 2019 OdooGap <info@odoogap.com>
+    // License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+    -->
 
     <!-- etl.function -->
 
@@ -27,7 +27,7 @@
             <search string="ETL Functions">
                 <field name="name"/>
                 <group col="8" colspan="4" expand="0" string="Group By">
-                     <filter name="global" string="Global" domain="[('process_ids', '=', False)]"/>
+<!--                    <filter name="global" string="Global" domain="[('process_ids', '=', False)]"/>-->
                 </group>
             </search>
         </field>
@@ -47,8 +47,8 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Python Code" name='code' autofocus="autofocus">
-                                <field name="code" widget="ace" options="{'mode': 'python'}"
-                                       placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
+                            <field name="code" widget="ace" options="{'mode': 'python'}"
+                                   placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
                         </page>
                     </notebook>
                 </sheet>
@@ -115,9 +115,10 @@
                         <field name="create_date"/>
                     </group>
                     <notebook colspan="4">
-                        <page string="Mapping" name='code' autofocus="autofocus" attrs="{'invisible': [('type','not in',['create','update','unlink'])]}">
+                        <page string="Mapping" name='code' autofocus="autofocus"
+                              >
                             <group>
-                                <field name="code" widget="ace" options="{'mode': 'python'}"
+                                <field name="code" widget="ace" options="{'mode': 'python'}" attrs="{'invisible': [('type','not in',['create','update','unlink'])]}"
                                        placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
                             </group>
                             <group>
@@ -125,6 +126,7 @@
                             </group>
                         </page>
                     </notebook>
+
                 </sheet>
             </form>
         </field>

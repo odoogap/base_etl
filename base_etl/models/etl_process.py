@@ -37,10 +37,6 @@ class EtlProcess(models.Model):
             cron = self.env['ir.cron'].sudo().create(cron_data)
             process.write({'cron_id': cron.id, 'state': 'running'})
 
-    @api.model
-    def _cron_run_process(self, ids):
-        self.browse(ids).model_copy()
-
     @api.multi
     def unlink(self):
         if any(self.filtered(lambda s: s.state == "running")):

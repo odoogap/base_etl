@@ -2,6 +2,14 @@
     'name': 'ETL Base',
     'version': '12.0.0.0.1',
     'category': 'ETL',
+    'summary': 'Base ETL',
+    'description': """
+ETL Base
+========
+This ETL base implements the basis for a ETL system based on JSONB Postgresql fields type.
+The idea is that a 3rd party will load data into a JSONB field and then a series of transformations will occur.
+Intention is that we can have a simple and flexible system and also controlable way of implementing ETL.
+    """,
     'author': 'Diogo Duarte (ODOOGAP.COM)',
     'website': 'https://www.odoogap.com',
     'depends': ['base'],
