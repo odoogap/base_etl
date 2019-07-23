@@ -12,7 +12,7 @@ Intention is that we can have a simple and flexible system and also controlable 
     """,
     'author': 'Diogo Duarte (ODOOGAP.COM)',
     'website': 'https://www.odoogap.com',
-    'depends': ['base'],
+    'depends': ['base', 'web'],
     'data': [
         'security/ir.model.access.csv',
         'views/etl_input_views.xml',

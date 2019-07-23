@@ -10,7 +10,10 @@ class EtlProcess(models.Model):
     _description = "ETL Process"
 
     name = fields.Char('Name')
-    rule_ids = fields.Many2many('etl.rule', 'etl_process_rules_rel', 'process_id', 'rule_id', string='Rules')
+    rule_ids = fields.Many2many('etl.rule', 'etl_process_rules_rel', 'process_id', 'rule_id', string='Rules',
+                                domain="[('type', '=', 'plugin')]")
+    mappings_ids = fields.Many2many('etl.rule', 'etl_process_mapping_rel', 'process_id', 'rule_id', string='Mappings',
+                                    domain="[('type', '=', 'mapping')]")
     cron_id = fields.Many2one('ir.cron', string='Cron Job', help="Scheduler which runs on etl")
     interval_number = fields.Integer(string='Cron Interval', default=1)
     interval_type = fields.Selection([('days', 'Days'), ('weeks', 'Weeks'), ('months', 'Months')], string='Interval Unit', default='months')

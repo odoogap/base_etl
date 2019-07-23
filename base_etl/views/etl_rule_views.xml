@@ -104,7 +104,7 @@
             <form string="ETL Rule">
                 <header>
                     <button name="run_test" string="Test" type="object"/>
-                    <button name="run_import" string="Process" type="object" class="oe_highlight"/>
+                    <button name="run_for_real" string="Process" type="object" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <group>

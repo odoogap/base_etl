@@ -7,6 +7,7 @@
     'website': 'https://www.odoogap.com',
     'depends': ['base_etl'],
     'data': [
+        'data/test_data.xml'
     ],
     'installable': True,
     'qweb': [

@@ -3,6 +3,7 @@
 
 
 from odoo import api, fields, models, _
+import json
 
 
 class EtlRuleTest(models.AbstractModel):
@@ -11,15 +12,21 @@ class EtlRuleTest(models.AbstractModel):
     _description = 'This is a Mixin for creating jobs -----'
 
     def _run(self, test=False):
-        return "Test mode = %s" % test
+        # input_data = self.env['etl.input'].search([('state', '=', 'new')], limit=50)
+        input_data = [
+            {
+                'customer': 'Mark David',
+                'type': 'new'
+            }, {
+                'customer': 'Jane Doe',
+                'type': 'new'
+            },
+        ]
 
+        get_rule = lambda x: self.env['etl.rule'].search([('name', '=', x)])
 
-class EtlRuleTest(models.AbstractModel):
-    _name = 'etl.rule.test02'
-    _inherit = ['etl.rule.mixin']
-    _description = 'This is a Mixin for creating jobs 2-----'
+        rule = get_rule('diamonds_make')
 
-    def _run(self, test=False):
-        return "Test mode 2 = %s" % test
-
-
+        transform = "{'name': etl_upper(data['customer']), 'state': data['type']}"
+        print ("...", rule)
+        return "Test mode = %s" % rule._etl_mapping_result(transform, input_data)

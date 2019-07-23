@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--
+// Copyright 2019 - 2019 OdooGap <info@odoogap.com> https://www.odoogap.com
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
+-->
+
+        <record id="etl_upper" model="etl.function">
+            <field name="name">etl_upper</field>
+            <field name="code">lambda x: "%s" % x.upper()</field>
+        </record>
+
+        <record id="test_process" model="etl.process">
+            <field name="name">Sync script 1</field>
+        </record>
+
+        <record id="test_rule" model="etl.rule">
+            <field name="sequence" eval="1"/>
+            <field name="name">Step 1</field>
+            <field name="type">plugin</field>
+            <field name="etl_plugin">etl.rule.test01</field>
+            <field name="process_ids" eval="[(6,0,[ref('etl_plugin_demo.test_process')])]"/>
+        </record>
+
+        <record id="diamonds_make" model="etl.rule">
+            <field name="name">diamonds_make</field>
+            <field name="type">mapping</field>
+            <field name="code">
+                {'name': etl_upper(data['customer'])}
+            </field>
+            <field name="mapping_ids" eval="[(6,0,[ref('etl_plugin_demo.test_process')])]"/>
+        </record>
+
+</odoo>
